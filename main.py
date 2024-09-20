@@ -87,6 +87,6 @@ class MainApp(MDApp):
         self.theme_cls.accent_palette = "Yellow"
         
         self.theme_cls.theme_style ="Dark"
-        return Builder.load_file("selbst.kv")
+        return Builder.load_file("selber.kv")
         
 MainApp().run()

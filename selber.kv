@@ -1,0 +1,176 @@
+WindowManager:
+    FirstWindow:
+    SecondWindow:
+        
+        
+<FirstWindow>:
+    name: "first"
+    
+    MDCard:
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        size_hint: (0.7, 0.5)
+        padding: 20
+        spacing: 20
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: dp(20)  # Abstand zwischen den Labels
+            padding: dp(20)
+
+            MDLabel:
+                text: "Willkommen zur Rechenapp"
+                halign: "center"
+                font_size: 55
+                pos_hint: {"center_x": 0.5}
+                size_hint_y: None
+                heigth: self.texture_size[1]
+
+            MDLabel:
+                text: "Ich gehe in die:"
+                halign: "center"
+                font_size: 45
+                pos_hint: {"center_x": 0.5}
+                size_hint_y: None
+                heigth: self.texture_size[1]
+                
+            MDFillRoundFlatButton:
+                text: "Volksschule"
+                theme_text_color: "Custom"
+                text_color: 0, 0, 1, 1
+                pos_hint: {"center_x": 0.5}
+                #size_hint_y: None
+                #heigth: self.texture_size[1]
+                on_press: root.manager.current = "second"
+                
+                
+            MDFillRoundFlatButton:
+                text: "Hauptschule"
+                theme_text_color: "Custom"
+                text_color: 0, 0, 1, 1
+                pos_hint: {"center_x": 0.5}
+                #size_hint_y: None
+                #heigth: self.texture_size[1]
+                
+            Widget:
+                size_hint_y: None
+                heigth: 200
+            
+            
+            Widget:
+                size_hint_y: None
+                heigth: 200
+                
+
+            
+    
+    
+<SecondWindow>:
+    name: "second"
+    
+    MDCard:
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        size_hint: (0.8, 0.6)
+        padding: 20
+        spacing: 20
+        
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: dp(20)
+            padding: dp(20)
+            
+            MDFillRoundFlatButton:
+                id: btn_start
+                text: "Los Gehts!"
+                theme_text_color: "Custom"
+                text_color: 0, 0, 1, 1
+                pos_hint: {"center_x": 0.5}
+                opacity: 1
+                on_press: root.rechnung()
+
+            MDLabel:
+                id: label_ueberschrift
+                text: "Wie viel ist"
+                opacity: 0
+                pos_hint: {"center_x": 0.5}
+                halign: "center"
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            MDLabel:
+                id: rechnung
+                text: ""
+                opacity: 0
+                pos_hint: {"center_x": 0.5}
+                halign: "center"
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            MDGridLayout:
+                cols: 3
+                padding: 20
+                spacing: 20
+                size_hint_x: None
+                width: self.minimum_width  # Breite anpassen
+                pos_hint: {"center_x": 0.5}  # Grid zentrieren
+
+                MDFillRoundFlatButton:
+                    id: btn1
+                    text: ""
+                    theme_text_color: "Custom"
+                    text_color: 0, 0, 1, 1
+                    opacity: 0
+                    on_press: root.check_answer(self)
+
+                MDFillRoundFlatButton:
+                    id: btn2
+                    text: ""
+                    theme_text_color: "Custom"
+                    text_color: 0, 0, 1, 1
+                    opacity: 0
+                    on_press: root.check_answer(self)
+
+                MDFillRoundFlatButton:
+                    id: btn3
+                    text: ""
+                    theme_text_color: "Custom"
+                    text_color: 0, 0, 1, 1
+                    opacity: 0
+                    on_press: root.check_answer(self)
+                    
+            MDLabel:
+                id: label_ergebnis
+                text: ""
+                opacity: 0
+                pos_hint: {"center_x": 0.5}
+                halign: "center"
+                size_hint_y: None
+                height: self.texture_size[1]
+                
+            MDLabel:
+                id: counter
+                text: 'Richtige'
+                opacity: 0
+                pos_hint: {"center_x": 0.5}
+                halign: "center"
+                size_hint_y: None
+                height: self.texture_size[1]
+                
+            MDLabel:
+                id: counterf
+                text: 'Falsche'
+                opacity: 0
+                pos_hint: {"center_x": 0.5}
+                halign: "center"
+                size_hint_y: None
+                height: self.texture_size[1]
+                
+   
+                              
+                               
+                
+
+            
+            
+        
+        
+        

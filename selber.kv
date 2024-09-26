@@ -1,176 +1,162 @@
+#selber.kv
 WindowManager:
     FirstWindow:
-    SecondWindow:
-        
         
 <FirstWindow>:
-    name: "first"
+    name: 'first'
     
-    MDCard:
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-        size_hint: (0.7, 0.5)
-        padding: 20
-        spacing: 20
-
-        BoxLayout:
-            orientation: 'vertical'
-            spacing: dp(20)  # Abstand zwischen den Labels
-            padding: dp(20)
-
-            MDLabel:
-                text: "Willkommen zur Rechenapp"
-                halign: "center"
-                font_size: 55
-                pos_hint: {"center_x": 0.5}
-                size_hint_y: None
-                heigth: self.texture_size[1]
-
-            MDLabel:
-                text: "Ich gehe in die:"
-                halign: "center"
-                font_size: 45
-                pos_hint: {"center_x": 0.5}
-                size_hint_y: None
-                heigth: self.texture_size[1]
-                
-            MDFillRoundFlatButton:
-                text: "Volksschule"
-                theme_text_color: "Custom"
-                text_color: 0, 0, 1, 1
-                pos_hint: {"center_x": 0.5}
-                #size_hint_y: None
-                #heigth: self.texture_size[1]
-                on_press: root.manager.current = "second"
-                
-                
-            MDFillRoundFlatButton:
-                text: "Hauptschule"
-                theme_text_color: "Custom"
-                text_color: 0, 0, 1, 1
-                pos_hint: {"center_x": 0.5}
-                #size_hint_y: None
-                #heigth: self.texture_size[1]
-                
-            Widget:
-                size_hint_y: None
-                heigth: 200
-            
-            
-            Widget:
-                size_hint_y: None
-                heigth: 200
-                
-
-            
-    
-    
-<SecondWindow>:
-    name: "second"
-    
-    MDCard:
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-        size_hint: (0.8, 0.6)
-        padding: 20
-        spacing: 20
+    MDBoxLayout:
+        orientation: 'vertical'
+        size_hint: (1,1)
         
-        BoxLayout:
-            orientation: 'vertical'
-            spacing: dp(20)
-            padding: dp(20)
+        # Haupt Widget für Bottom Navigation
+        MDBottomNavigation:
+            panel_color: '#ACC8E5'
+            selected_color_background: "#97ecf8"
+            text_color_active: 0, 0, 0, 1
             
-            MDFillRoundFlatButton:
-                id: btn_start
-                text: "Los Gehts!"
-                theme_text_color: "Custom"
-                text_color: 0, 0, 1, 1
-                pos_hint: {"center_x": 0.5}
-                opacity: 1
-                on_press: root.rechnung()
-
-            MDLabel:
-                id: label_ueberschrift
-                text: "Wie viel ist"
-                opacity: 0
-                pos_hint: {"center_x": 0.5}
-                halign: "center"
-                size_hint_y: None
-                height: self.texture_size[1]
-
-            MDLabel:
-                id: rechnung
-                text: ""
-                opacity: 0
-                pos_hint: {"center_x": 0.5}
-                halign: "center"
-                size_hint_y: None
-                height: self.texture_size[1]
-
-            MDGridLayout:
-                cols: 3
-                padding: 20
-                spacing: 20
-                size_hint_x: None
-                width: self.minimum_width  # Breite anpassen
-                pos_hint: {"center_x": 0.5}  # Grid zentrieren
-
-                MDFillRoundFlatButton:
-                    id: btn1
-                    text: ""
-                    theme_text_color: "Custom"
-                    text_color: 0, 0, 1, 1
-                    opacity: 0
-                    on_press: root.check_answer(self)
-
-                MDFillRoundFlatButton:
-                    id: btn2
-                    text: ""
-                    theme_text_color: "Custom"
-                    text_color: 0, 0, 1, 1
-                    opacity: 0
-                    on_press: root.check_answer(self)
-
-                MDFillRoundFlatButton:
-                    id: btn3
-                    text: ""
-                    theme_text_color: "Custom"
-                    text_color: 0, 0, 1, 1
-                    opacity: 0
-                    on_press: root.check_answer(self)
+            #Tab Startseite
+            MDBottomNavigationItem:
+                id: startseite
+                name: 'startseite'
+                text: 'Startseite'
+                icon: 'menu'
+                disabled: False
+               #badge_icon: "numeric-0"
+               #on_tab_press: root.ausgabe(self.text)
+                
+                MDBoxLayout:
+                    orientation:'vertical'
+                    size_hint:(1,1)
+                    padding: 50
+     
+                    #Card
+                    MDCard:
+                        size_hint: (0.9,0.9)
+                        pos_hint: {'center_x':0.5, 'center_y':0.5}
+            
+                        #Foto Hintergrund
+                        FitImage:
+                            source: 'pic.jpg'
+                            radius: 50
+                            
+                    MDBoxLayout:
+                        orientation:'vertical'
+                        size_hint:(1,0.2)
+                        
+                        MDLabel:
+                            text: 'Wilkommen zur Rechenapp'
+                            halign:'center'
+                            font_size: 70
+                            
+                            # Ende Startseite Beginn Tab Rechner
+                        
+            # Tab Rechner Plus Minus
+            MDBottomNavigationItem:
+                id: rechner
+                name: 'rechenaufgabe'
+                text: 'Plus Minus Rechner'
+                icon: 'eject'
+                #badge_icon: "numeric-0"
+                #on_tab_press: root.ausgabe(self.text)
+                
+                # Layout für den Cancel Button
+                MDBoxLayout:
+                    orientation:'vertical'
+                    size_hint_y: 0.6
+                    pos_hint: {'top':1}
+                    # Cancel Button zum aktivieren der restlichen Nav Bar
+                    MDIconButton:
+                        id: close_btn
+                        icon: 'close'
+                        pos_hint: {'x':0, 'y':0.8}
+                        opacity: 0
+                        on_release: root.close_btn()
+                    # Label für die Rechnung zum anzeigen
+                    MDLabel:
+                        id: rechnung
+                        text: 'Hallo'
+                        halign: 'center'
+                        pos_hint: {'center_x':0.5, 'center_y':0.3}
+                        opacity: 0
+                        font_size: 80
+                    MDLabel:
+                        id: counter_richtig
+                        text:''
+                        halign: 'center'
+                        pos_hint: {'center_x':0.5, 'center_y':0.15}
+                        opacity: 0
+                        font_size: 60
+                    MDLabel:
+                        id: counter_falsch
+                        text:''
+                        halign: 'center'
+                        pos_hint: {'center_x':0.5, 'center_y':0.10}
+                        opacity: 0
+                        font_size: 60
+                        
+                        
+                    MDBoxLayout:
+                        orientation: 'horizontal'
+                        size_hint_y: 0.4
+                        size_hint_x: 1
+                        spacing: 40
+                        padding: 10
+                        #pos_hint: {'center_x':0.5, 'y':0.5}
+                            
+                        MDRaisedButton:
+                            id: btn1
+                            text:'Seas'
+                            size_hint:(0.2,0.6)
+                            opacity: 0
+                            disabled:True
+                            on_press: root.check_answer(self.text)
+                        MDRaisedButton:
+                            id: btn2
+                            text:'Hallo'
+                            size_hint:(0.2,0.6)
+                            opacity: 0
+                            disabled:True
+                            on_press: root.check_answer(self.text)
+                        MDRaisedButton:
+                            id: btn3
+                            text:'Seas'
+                            size_hint: (0.2,0.6)
+                            opacity:0
+                            disabled:True
+                            on_press: root.check_answer(self.text)
+                        
                     
-            MDLabel:
-                id: label_ergebnis
-                text: ""
-                opacity: 0
-                pos_hint: {"center_x": 0.5}
-                halign: "center"
-                size_hint_y: None
-                height: self.texture_size[1]
-                
-            MDLabel:
-                id: counter
-                text: 'Richtige'
-                opacity: 0
-                pos_hint: {"center_x": 0.5}
-                halign: "center"
-                size_hint_y: None
-                height: self.texture_size[1]
-                
-            MDLabel:
-                id: counterf
-                text: 'Falsche'
-                opacity: 0
-                pos_hint: {"center_x": 0.5}
-                halign: "center"
-                size_hint_y: None
-                height: self.texture_size[1]
-                
+ 
+                        
+                        
+                    
+                        
    
-                              
-                               
+                 
                 
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    size_hint:(0.5,0.2)
+                    pos_hint: {'center_x':0.5, 'center_y':0.5}
 
-            
-            
-        
-        
-        
+                    # Button zum starten des Programmes
+                    MDRaisedButton:
+                        id: startbtn
+                        text: 'Start'
+                        font_size: 60
+                        size_hint:(0.7,0.2)
+                        pos_hint: {'center_x':0.5, 'center_y':0.5}
+                        opacity: 1
+                        disabled: False
+                        on_release: root.button_opacity()
+                        
+
+                              
+                            
+                        
+
+                        
+                   
+                        
+                    
